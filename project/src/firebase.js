@@ -1,0 +1,1 @@
+// firebase.js configures information to connect with Firebase Project and export Firebase Database service.
