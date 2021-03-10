@@ -6,13 +6,13 @@ import "firebase/database";
 require("dotenv").config();
 
 let config = {
-  apiKey: process.env.apiKey,
+  apiKey: process.env.API_KEY,
     authDomain: "react-firebase-crud-71ae5.firebaseapp.com",
     databaseURL: "https://react-firebase-crud-71ae5-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "react-firebase-crud-71ae5",
     storageBucket: "react-firebase-crud-71ae5.appspot.com",
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
+    messagingSenderId: process.env.MESSAGINGSENDERID,
+    appId: process.env.APP_ID,
     measurementId: "G-KYXJL0Z2XD"
 };
 
