@@ -75,14 +75,14 @@ export default class addItem extends Component {
           <div>
             <h4>You submitted successfully!</h4>
             <button className="btn btn-success" onClick={this.newItem}>
-              Add
+              Add new item
             </button>
           </div>
         ) : (
           <div>
             <form onSubmit={this.saveItem}>
               <div className="form-group">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="title">Item Title</label>
                 <input
                   type="text"
                   className="form-control"
@@ -95,7 +95,7 @@ export default class addItem extends Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">Item Description</label>
                 <input
                   type="text"
                   className="form-control"
