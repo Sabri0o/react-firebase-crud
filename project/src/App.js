@@ -31,7 +31,7 @@ class App extends Component {
       </nav>
 
       <div className="container mt-3">
-        <h2>React Firebase Database CRUD APP</h2>
+        <h2>Stock manager</h2>
         <Switch>
           <Route exact path={["/", "/items"]} component={itemList} />
           <Route exact path="/add" component={addItem} />

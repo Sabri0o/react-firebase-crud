@@ -7,11 +7,13 @@ export default class addItem extends Component {
     this.state = {
       title: "",
       description: "",
+      quantity: "",
       published: false,
       submitted: false,
     };
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeQuantity = this.onChangeQuantity.bind(this);
     this.saveItem = this.saveItem.bind(this);
     this.newItem = this.newItem.bind(this);
   }
@@ -28,10 +30,18 @@ export default class addItem extends Component {
     });
   }
 
-  saveItem() {
+  onChangeQuantity(e) {
+    this.setState({
+      quantity: e.target.value,
+    });
+  }
+
+  saveItem(e) {
+    e.preventDefault();
     let data = {
       title: this.state.title,
       description: this.state.description,
+      quantity: this.state.quantity,
       published: false,
     };
 
@@ -53,14 +63,14 @@ export default class addItem extends Component {
       title: "",
       description: "",
       published: false,
-
+      quantity: "",
       submitted: false,
     });
   }
 
   render() {
     return (
-      <div className="submit-form">
+      <div>
         {this.state.submitted ? (
           <div>
             <h4>You submitted successfully!</h4>
@@ -70,35 +80,52 @@ export default class addItem extends Component {
           </div>
         ) : (
           <div>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                className="form-control"
-                id="title"
-                required
-                value={this.state.title}
-                onChange={this.onChangeTitle}
-                name="title"
-              />
-            </div>
+            <form onSubmit={this.saveItem}>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  value={this.state.title}
+                  onChange={this.onChangeTitle}
+                  name="title"
+                  required
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                className="form-control"
-                id="description"
-                required
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-                name="description"
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="description"
+                  required
+                  value={this.state.description}
+                  onChange={this.onChangeDescription}
+                  name="description"
+                />
+              </div>
 
-            <button onClick={this.saveItem} className="btn btn-success">
-              Submit
-            </button>
+              <div className="form-group">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="quantity"
+                  required
+                  value={this.state.quantity}
+                  onChange={this.onChangeQuantity}
+                  name="quantity"
+                  min="0"
+                  max="999"
+                />
+              </div>
+
+              <button type="submit" className="btn btn-success">
+                Submit
+              </button>
+            </form>
           </div>
         )}
       </div>
