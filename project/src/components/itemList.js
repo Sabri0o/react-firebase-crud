@@ -36,7 +36,8 @@ export default class itemList extends Component {
     });
   }
   render() {
-      console.log(ItemDataService.getAll())
+      console.log('data from firebase: ',ItemDataService.getAll())
+
     return <div></div>;
   }
 }
