@@ -3,42 +3,39 @@ import ItemDataService from "../services/itemService";
 
 export default class itemList extends Component {
   constructor(props) {
-    super(props);    
+    super(props);
 
     this.state = {
-        items: [],
+      items: [],
     };
-
-    this.onDataChange = this.onDataChange.bind(this);
   }
 
-//   componentDidMount() {
-//     ItemDataService.getAll()
-//   }
-
-  onDataChange(list) {
-    let items = [];
-
-    list.forEach((item) => {
-      let key = item.key;
-      let data = item.val();
-      items.push({
-        key: key,
-        title: data.title,
-        description: data.description,
-        quantity: data.quantity,
-        published: data.published,
-      });
-    });
-
-    this.setState({
-      items: items,
+  componentDidMount() {
+    const list = [];
+    ItemDataService.getAll().on("value", (snapshot) => {
+      const data = snapshot.val();
+      for (var key in data) {
+        let item = data[key];
+        if (data) {
+          list.push({
+            key: key,
+            title: item.title,
+            description: item.description,
+            quantity: item.quantity,
+            published: item.published,
+          });
+          this.setState({
+            items: list,
+          });
+        }
+      }
     });
   }
+
+  
+
   render() {
-      console.log(this.state.items)
-      console.log('data from firebase: ',ItemDataService.getAll())
-
+    console.log('items: ',this.state.items)
     return <div></div>;
   }
 }
