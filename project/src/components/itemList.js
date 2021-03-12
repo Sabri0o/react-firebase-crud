@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import ItemDataService from "../services/itemService";
-
+import Item from "./item"
 export default class itemList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       items: [],
+      selectedItemKey : ''
     };
+
+    this.selectedItem = this.selectedItem.bind(this)
   }
 
   componentDidMount() {
@@ -32,6 +35,13 @@ export default class itemList extends Component {
     });
   }
 
+  selectedItem(item){
+    console.log(item)
+    this.setState({
+      selectedItemKey : item
+    })
+  }
+
   render() {
     console.log("items: ", this.state.items);
     const items = this.state.items;
@@ -42,19 +52,16 @@ export default class itemList extends Component {
           <h4>Items List</h4>
 
           <ul className="list-group">
-            {items &&
-              items.map((item, index) => (
-                <li
-                  className="list-group-item "
-                  key={index}
-                >
-                  {item.title}
-                </li>
-              ))}
+            {items.map((item, index) => (
+              <li className="list-group-item " key={index} onClick={()=>this.selectedItem(item)}>
+                {item.title}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="col-md-6">
           <h4>Item information</h4>
+          <Item selected={this.state.selectedItemKey}/>
         </div>
       </div>
     );
