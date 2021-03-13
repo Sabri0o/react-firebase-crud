@@ -43,7 +43,7 @@ export default class itemList extends Component {
   }
 
   render() {
-    console.log("items: ", this.state.items);
+    // console.log("items: ", this.state.items);
     const items = this.state.items;
 
     return (
