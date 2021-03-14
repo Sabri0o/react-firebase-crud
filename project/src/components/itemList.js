@@ -7,7 +7,7 @@ export default class itemList extends Component {
 
     this.state = {
       items: [],
-      selectedItemKey : ''
+      selectedItemKey : null
     };
 
     this.selectedItem = this.selectedItem.bind(this)
@@ -61,7 +61,11 @@ export default class itemList extends Component {
         </div>
         <div className="col-md-6">
           <h4>Item information</h4>
-          <Item selected={this.state.selectedItemKey}/>
+          {this.state.selectedItemKey ? <Item selected={this.state.selectedItemKey}/> : 
+          <div>
+              <br />
+              <p>Please click on an Item...</p>
+            </div>}
         </div>
       </div>
     );
