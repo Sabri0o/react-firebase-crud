@@ -29,8 +29,8 @@ export default class item extends Component {
   }
   
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log("prevState: ", prevState);
-    console.log("nextProps: ", nextProps);
+    // console.log("prevState: ", prevState);
+    // console.log("nextProps: ", nextProps);
     const { selected } = nextProps;
     if (prevState.currentItem.key !== selected.key) {
       return {
@@ -66,7 +66,7 @@ export default class item extends Component {
         },
         message : 'Item was updated successfully !'
       });
-    })
+    })  
     .catch((e) => {
       console.log(e);
     });
