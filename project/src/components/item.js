@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ItemDataService from '../services/itemService'
+import ItemDataService from "../services/itemService";
 export default class item extends Component {
   constructor(props) {
     super(props);
@@ -9,25 +9,25 @@ export default class item extends Component {
         title: "",
         description: "",
       },
-      message :''
-
+      message: "",
     };
     this.handleOnChange = this.handleOnChange.bind(this);
-    this.updateItem = this.updateItem.bind(this)
+    this.updateItem = this.updateItem.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
-    console.log("Receiving new props...");
-  }
-  componentDidUpdate() {
-    console.log("Component re-rendered.");
-  }
-  
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("Receiving new props...");
+  // }
+  // componentDidUpdate() {
+  //   console.log("Component re-rendered.");
+  // }
+
   componentDidMount() {
     this.setState({
       currentItem: this.props.selected,
     });
   }
-  
+
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log("prevState: ", prevState);
     // console.log("nextProps: ", nextProps);
@@ -35,12 +35,13 @@ export default class item extends Component {
     if (prevState.currentItem.key !== selected.key) {
       return {
         currentItem: selected,
+        message:""
       };
     }
-    
+
     return prevState.currentItem;
   }
-  
+
   handleOnChange(e) {
     this.setState((state) => ({
       currentItem: {
@@ -49,29 +50,24 @@ export default class item extends Component {
       },
     }));
   }
-  
+
   updateItem() {
     const data = {
       title: this.state.currentItem.title,
       description: this.state.currentItem.description,
     };
-    
+
     ItemDataService.update(this.state.currentItem.key, data)
-    .then(() => {
-      this.setState({
-        currentItem: {
-          key: null,
-          title: "",
-          description: "",
-        },
-        message : 'Item was updated successfully !'
+      .then(() => {
+        this.setState({
+          message: "Item was updated successfully !",
+        });
+      })
+      .catch((e) => {
+        console.log(e);
       });
-    })  
-    .catch((e) => {
-      console.log(e);
-    });
   }
-  
+
   render() {
     // console.log('currentItem: ',currentItem)
     return (
@@ -86,7 +82,7 @@ export default class item extends Component {
               value={this.state.currentItem.title}
               name="title"
               onChange={this.handleOnChange}
-              />
+            />
           </div>
           <div className="form-group">
             <label htmlFor="description">Description</label>
@@ -97,21 +93,17 @@ export default class item extends Component {
               value={this.state.currentItem.description}
               name="description"
               onChange={this.handleOnChange}
-              />
+            />
           </div>
         </form>
 
-        <button
-          className="badge badge-danger mr-2"
-          >
-          Delete
-        </button>
+        <button className="badge badge-danger mr-2">Delete</button>
 
         <button
           type="submit"
           className="badge badge-success"
           onClick={this.updateItem}
-          >
+        >
           Update
         </button>
         <p>{this.state.message}</p>
@@ -120,22 +112,20 @@ export default class item extends Component {
   }
 }
 
+// shouldComponentUpdate(nextProps, prevState) {
+//   console.log('Should I update?');
+//   // Change code below this line
+//   console.log('prevState: ',prevState)
+//   console.log('nextProps: ',nextProps)
+//   // Change code above this line
+//   if (prevState.currentItem.key !== nextProps.selected.key) {
+//     this.setState({
+//       currentItem: nextProps.selected
+//     })
+//     return true
+//   }
+//   else{
 
-  // shouldComponentUpdate(nextProps, prevState) {
-  //   console.log('Should I update?');
-  //   // Change code below this line
-  //   console.log('prevState: ',prevState)
-  //   console.log('nextProps: ',nextProps)
-  //   // Change code above this line
-  //   if (prevState.currentItem.key !== nextProps.selected.key) {
-  //     this.setState({
-  //       currentItem: nextProps.selected
-  //     })
-  //     return true
-  //   }
-  //   else{
-
-  //     return false
-  //     }
-  // }
-  
+//     return false
+//     }
+// }
