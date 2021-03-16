@@ -81,12 +81,21 @@ export default class itemList extends Component {
   }
 
   render() {
+
+    const divStyle={
+      overflowY: 'scroll',
+      // border:'1px solid red',
+      width:'500px',
+      float: 'left',
+      height:'500px',
+      position:'relative'
+    };
     // console.log("items: ", this.state.items);
     const items = this.state.items;
 
     return (
       <div className="list row">
-        <div className="col-md-6">
+        <div className="col-md-6" style={divStyle}>
           <h4>Items List</h4>
 
           <ul className="list-group">
