@@ -8,12 +8,13 @@ export default class item extends Component {
         key: null,
         title: "",
         description: "",
-        quantity:"",
+        quantity: "",
       },
       message: "",
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -36,7 +37,7 @@ export default class item extends Component {
     if (prevState.currentItem.key !== selected.key) {
       return {
         currentItem: selected,
-        message:""
+        message: "",
       };
     }
 
@@ -56,7 +57,7 @@ export default class item extends Component {
     const data = {
       title: this.state.currentItem.title,
       description: this.state.currentItem.description,
-      quantity : this.state.currentItem.quantity
+      quantity: this.state.currentItem.quantity,
     };
 
     ItemDataService.update(this.state.currentItem.key, data)
@@ -64,6 +65,16 @@ export default class item extends Component {
         this.setState({
           message: "Item was updated successfully !",
         });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  deleteItem() {
+    ItemDataService.delete(this.state.currentItem.key)
+      .then(() => {
+        this.props.refresher();
       })
       .catch((e) => {
         console.log(e);
@@ -98,23 +109,24 @@ export default class item extends Component {
             />
           </div>
           <div className="form-group">
-                <label htmlFor="quantity">Quantity</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="quantity"
-                  required
-                  value={this.state.currentItem.quantity}
-                  onChange={this.handleOnChange}
-                  name="quantity"
-                  min="0"
-                  max="999"
-                />
-              </div>
+            <label htmlFor="quantity">Quantity</label>
+            <input
+              type="number"
+              className="form-control"
+              id="quantity"
+              required
+              value={this.state.currentItem.quantity}
+              onChange={this.handleOnChange}
+              name="quantity"
+              min="0"
+              max="999"
+            />
+          </div>
         </form>
 
-        <button className="badge badge-danger mr-2">Delete</button>
-
+        <button className="badge badge-danger mr-2" onClick={this.deleteItem}>
+          Delete
+        </button>
         <button
           type="submit"
           className="badge badge-success"

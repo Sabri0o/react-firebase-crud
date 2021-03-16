@@ -11,7 +11,7 @@ export default class itemList extends Component {
     };
 
     this.selectedItem = this.selectedItem.bind(this);
-    // this.refreshList = this.refreshList.bind(this);
+    this.refreshList = this.refreshList.bind(this);
     this.onDataChange = this.onDataChange.bind(this);
   }
 
@@ -74,11 +74,11 @@ export default class itemList extends Component {
     });
   }
 
-  // refreshList() {
-  //   this.setState({
-  //     selectedItemKey: null,
-  //   });
-  // }
+  refreshList() {
+    this.setState({
+      selectedItemKey: null,
+    });
+  }
 
   render() {
     // console.log("items: ", this.state.items);
@@ -106,7 +106,7 @@ export default class itemList extends Component {
           {this.state.selectedItemKey ? (
             <Item
               selected={this.state.selectedItemKey}
-              // refresher={this.state.refreshList}
+              refresher={this.refreshList}
             />
           ) : (
             <div>
