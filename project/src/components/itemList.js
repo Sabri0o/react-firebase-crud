@@ -83,7 +83,7 @@ export default class itemList extends Component {
   render() {
 
     const divStyle={
-      overflowY: 'scroll',
+      overflowY: 'auto',
       // border:'1px solid red',
       width:'500px',
       float: 'left',
