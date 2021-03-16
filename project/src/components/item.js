@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ItemDataService from "../services/itemService";
-
+import ReactTooltip from "react-tooltip";
 export default class item extends Component {
   constructor(props) {
     super(props);
@@ -11,13 +11,12 @@ export default class item extends Component {
         description: "",
         quantity: "",
       },
-      currentItemCopy:{
+      currentItemCopy: {
         title: "",
         description: "",
         quantity: "",
       },
       message: "",
-      anyChange : true
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.updateItem = this.updateItem.bind(this);
@@ -31,12 +30,12 @@ export default class item extends Component {
   //   console.log("Component re-rendered.");
   // }
 
-  componentDidMount() {
-    this.setState({
-      currentItem: this.props.selected,
-      currentItemCopy: this.props.selected,
-    });
-  }
+  // componentDidMount() {
+  //       this.setState({
+  //     currentItem: this.props.selected,
+  //     currentItemCopy: this.props.selected,
+  //   });
+  // }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log("prevState: ", prevState);
@@ -45,22 +44,14 @@ export default class item extends Component {
     if (prevState.currentItem.key !== selected.key) {
       return {
         currentItem: selected,
-        currentItemCopy:selected,
+        currentItemCopy: selected,
         message: "",
-        // anyChange:true
       };
     }
     return prevState.currentItem;
   }
 
-  
   handleOnChange(e) {
-    // const {title:titleCopy,description:descriptionCopy,quantity:quantityCopy} = this.state.currentItemCopy
-    // const {title,description,quantity} = this.state.currentItem
-    // console.log(this.state.currentItem,this.state.currentItemCopy)
-
-    // var anyChangeBool = (titleCopy !== title || description !== descriptionCopy || quantity !== quantityCopy)
-    // console.log(anyChangeBool)
     this.setState((state) => ({
       currentItem: {
         ...state.currentItem,
@@ -79,14 +70,14 @@ export default class item extends Component {
 
     ItemDataService.update(this.state.currentItem.key, data)
       .then(() => {
-        this.setState((state)=>({
-          currentItemCopy:{
+        this.setState((state) => ({
+          currentItemCopy: {
             title: state.currentItem.title,
             description: state.currentItem.description,
             quantity: state.currentItem.quantity,
           },
           message: "Item was updated successfully !",
-          anyChange: false
+          anyChange: false,
         }));
       })
       .catch((e) => {
@@ -106,8 +97,12 @@ export default class item extends Component {
 
   render() {
     // console.log('anyChange',this.state.anyChange)
-    const {title:titleCopy,description:descriptionCopy,quantity:quantityCopy} = this.state.currentItemCopy
-    const {title,description,quantity} = this.state.currentItem
+    const {
+      title: titleCopy,
+      description: descriptionCopy,
+      quantity: quantityCopy,
+    } = this.state.currentItemCopy;
+    const { title, description, quantity } = this.state.currentItem;
     return (
       <div className="edit-form">
         <form>
@@ -148,18 +143,36 @@ export default class item extends Component {
           </div>
         </form>
 
-        <button className="badge badge-danger mr-2" onClick={this.deleteItem}>
+        <button
+          className="badge badge-danger mr-2"
+          onClick={this.deleteItem}
+          disabled={true}
+        >
           Delete
         </button>
-        <button
-          type="submit"
-          className="badge badge-success"
-          onClick={this.updateItem}
-          disabled = {!(titleCopy !== title || description !== descriptionCopy || quantity !== quantityCopy)} 
+        <span
+          data-tip="enabled only when there are changes !"
+          data-place="right"
+          data-effect="solid"
+          data-type="info"
         >
-          Update
-        </button>
+          <button
+            type="submit"
+            className="badge badge-success"
+            onClick={this.updateItem}
+            disabled={
+              !(
+                titleCopy !== title ||
+                description !== descriptionCopy ||
+                quantity !== quantityCopy
+              )
+            }
+          >
+            Update
+          </button>
+        </span>
         <p>{this.state.message}</p>
+        <ReactTooltip offset={{ top: 15, right: 10 }} />
       </div>
     );
   }
