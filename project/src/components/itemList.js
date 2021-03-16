@@ -67,7 +67,7 @@ export default class itemList extends Component {
   }
 
   selectedItem(item,index) {
-    console.log("selected", item);
+    // console.log("selected", item);
     this.setState({
       selectedItemKey: item,
       selectedItemIndex : index
@@ -84,7 +84,7 @@ export default class itemList extends Component {
   render() {
     const divStyle = {
       overflowY: "auto",
-      height: "500px",
+      height: "400px",
       position: "relative",
     };
     // console.log("items: ", this.state.items);

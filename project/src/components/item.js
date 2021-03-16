@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ItemDataService from "../services/itemService";
+
 export default class item extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +11,13 @@ export default class item extends Component {
         description: "",
         quantity: "",
       },
+      currentItemCopy:{
+        title: "",
+        description: "",
+        quantity: "",
+      },
       message: "",
+      anyChange : true
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.updateItem = this.updateItem.bind(this);
@@ -27,6 +34,7 @@ export default class item extends Component {
   componentDidMount() {
     this.setState({
       currentItem: this.props.selected,
+      currentItemCopy: this.props.selected,
     });
   }
 
@@ -37,18 +45,27 @@ export default class item extends Component {
     if (prevState.currentItem.key !== selected.key) {
       return {
         currentItem: selected,
+        currentItemCopy:selected,
         message: "",
+        // anyChange:true
       };
     }
-
     return prevState.currentItem;
   }
 
+  
   handleOnChange(e) {
+    // const {title:titleCopy,description:descriptionCopy,quantity:quantityCopy} = this.state.currentItemCopy
+    // const {title,description,quantity} = this.state.currentItem
+    // console.log(this.state.currentItem,this.state.currentItemCopy)
+
+    // var anyChangeBool = (titleCopy !== title || description !== descriptionCopy || quantity !== quantityCopy)
+    // console.log(anyChangeBool)
     this.setState((state) => ({
       currentItem: {
         ...state.currentItem,
         [e.target.name]: e.target.value,
+        // anyChange : anyChangeBool
       },
     }));
   }
@@ -62,9 +79,15 @@ export default class item extends Component {
 
     ItemDataService.update(this.state.currentItem.key, data)
       .then(() => {
-        this.setState({
+        this.setState((state)=>({
+          currentItemCopy:{
+            title: state.currentItem.title,
+            description: state.currentItem.description,
+            quantity: state.currentItem.quantity,
+          },
           message: "Item was updated successfully !",
-        });
+          anyChange: false
+        }));
       })
       .catch((e) => {
         console.log(e);
@@ -82,7 +105,9 @@ export default class item extends Component {
   }
 
   render() {
-    // console.log('currentItem: ',this.state.currentItem)
+    // console.log('anyChange',this.state.anyChange)
+    const {title:titleCopy,description:descriptionCopy,quantity:quantityCopy} = this.state.currentItemCopy
+    const {title,description,quantity} = this.state.currentItem
     return (
       <div className="edit-form">
         <form>
@@ -114,7 +139,6 @@ export default class item extends Component {
               type="number"
               className="form-control"
               id="quantity"
-              required
               value={this.state.currentItem.quantity}
               onChange={this.handleOnChange}
               name="quantity"
@@ -131,7 +155,7 @@ export default class item extends Component {
           type="submit"
           className="badge badge-success"
           onClick={this.updateItem}
-          // disabled 
+          disabled = {!(titleCopy !== title || description !== descriptionCopy || quantity !== quantityCopy)} 
         >
           Update
         </button>
