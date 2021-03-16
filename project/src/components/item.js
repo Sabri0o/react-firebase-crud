@@ -131,6 +131,7 @@ export default class item extends Component {
           type="submit"
           className="badge badge-success"
           onClick={this.updateItem}
+          // disabled 
         >
           Update
         </button>

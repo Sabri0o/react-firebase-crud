@@ -84,9 +84,6 @@ export default class itemList extends Component {
   render() {
     const divStyle = {
       overflowY: "auto",
-      // border:'1px solid red',
-      width: "500px",
-      float: "left",
       height: "500px",
       position: "relative",
     };
@@ -95,9 +92,9 @@ export default class itemList extends Component {
 
     return (
       <div className="list row">
-        <div className="col-md-6" >
+        <div className="col-md-6"  >
         <h4>Items List</h4>
-          <ul className="list-group" style={divStyle}>
+          <ul className="list-group" style={divStyle} >
             {items.map((item, index) => (
               <li
               className={
