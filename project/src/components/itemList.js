@@ -8,6 +8,7 @@ export default class itemList extends Component {
     this.state = {
       items: [],
       selectedItemKey: null,
+      selectedItemIndex: null,
     };
 
     this.selectedItem = this.selectedItem.bind(this);
@@ -65,16 +66,18 @@ export default class itemList extends Component {
     });
   }
 
-  selectedItem(item) {
+  selectedItem(item,index) {
     console.log("selected", item);
     this.setState({
       selectedItemKey: item,
+      selectedItemIndex : index
     });
   }
 
   refreshList() {
     this.setState({
       selectedItemKey: null,
+      selectedItemIndex: null,
     });
   }
 
@@ -97,9 +100,12 @@ export default class itemList extends Component {
           <ul className="list-group" style={divStyle}>
             {items.map((item, index) => (
               <li
-                className="list-group-item "
+              className={
+                "list-group-item " +
+                (index === this.state.selectedItemIndex ? "active" : "")
+              }
                 key={index}
-                onClick={() => this.selectedItem(item)}
+                onClick={() => this.selectedItem(item,index)}
               >
                 {item.title}
               </li>
