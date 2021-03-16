@@ -31,6 +31,7 @@ export default class addItem extends Component {
   }
 
   onChangeQuantity(e) {
+    console.log(e.target.value)
     this.setState({
       quantity: e.target.value,
     });

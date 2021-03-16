@@ -8,6 +8,7 @@ export default class item extends Component {
         key: null,
         title: "",
         description: "",
+        quantity:"",
       },
       message: "",
     };
@@ -55,6 +56,7 @@ export default class item extends Component {
     const data = {
       title: this.state.currentItem.title,
       description: this.state.currentItem.description,
+      quantity : this.state.currentItem.quantity
     };
 
     ItemDataService.update(this.state.currentItem.key, data)
@@ -69,7 +71,7 @@ export default class item extends Component {
   }
 
   render() {
-    // console.log('currentItem: ',currentItem)
+    // console.log('currentItem: ',this.state.currentItem)
     return (
       <div className="edit-form">
         <form>
@@ -95,6 +97,20 @@ export default class item extends Component {
               onChange={this.handleOnChange}
             />
           </div>
+          <div className="form-group">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="quantity"
+                  required
+                  value={this.state.currentItem.quantity}
+                  onChange={this.handleOnChange}
+                  name="quantity"
+                  min="0"
+                  max="999"
+                />
+              </div>
         </form>
 
         <button className="badge badge-danger mr-2">Delete</button>

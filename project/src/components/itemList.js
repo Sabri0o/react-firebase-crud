@@ -56,8 +56,7 @@ export default class itemList extends Component {
         key: key,
         title: data.title,
         description: data.description,
-        quantity: item.quantity,
-        published: data.published,
+        quantity: data.quantity,
       });
     });
 
@@ -69,6 +68,7 @@ export default class itemList extends Component {
   
 
   selectedItem(item) {
+    console.log('selected',item)
     this.setState({
       selectedItemKey: item,
     });
@@ -106,7 +106,7 @@ export default class itemList extends Component {
           {this.state.selectedItemKey ? (
             <Item
               selected={this.state.selectedItemKey}
-              refresher={this.state.refreshList}
+              // refresher={this.state.refreshList}
             />
           ) : (
             <div>
