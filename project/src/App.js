@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/tutorials" className="navbar-brand">
+        <a href="/react-fb-crud-app" className="navbar-brand">
           Stock manager
         </a>
         <div className="navbar-nav mr-auto">

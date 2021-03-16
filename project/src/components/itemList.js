@@ -65,10 +65,8 @@ export default class itemList extends Component {
     });
   }
 
-  
-
   selectedItem(item) {
-    console.log('selected',item)
+    console.log("selected", item);
     this.setState({
       selectedItemKey: item,
     });
@@ -81,24 +79,22 @@ export default class itemList extends Component {
   }
 
   render() {
-
-    const divStyle={
-      overflowY: 'auto',
+    const divStyle = {
+      overflowY: "auto",
       // border:'1px solid red',
-      width:'500px',
-      float: 'left',
-      height:'500px',
-      position:'relative'
+      width: "500px",
+      float: "left",
+      height: "500px",
+      position: "relative",
     };
     // console.log("items: ", this.state.items);
     const items = this.state.items;
 
     return (
       <div className="list row">
-        <div className="col-md-6" style={divStyle}>
-          <h4>Items List</h4>
-
-          <ul className="list-group">
+        <div className="col-md-6" >
+        <h4>Items List</h4>
+          <ul className="list-group" style={divStyle}>
             {items.map((item, index) => (
               <li
                 className="list-group-item "
