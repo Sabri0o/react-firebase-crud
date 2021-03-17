@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ItemDataService from "../services/itemService";
 import ReactTooltip from "react-tooltip";
+import { Button,Modal } from 'react-bootstrap';
+ 
 export default class item extends Component {
   constructor(props) {
     super(props);
@@ -17,10 +19,16 @@ export default class item extends Component {
         quantity: "",
       },
       message: "",
+      showModal:false
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.updateItem = this.updateItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+
+    
+
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -95,6 +103,18 @@ export default class item extends Component {
       });
   }
 
+  showModal(){
+    this.setState({
+      showModal: true
+    })
+  }
+
+  hideModal(){
+    this.setState({
+      showModal: false
+    })
+  }
+
   render() {
     // console.log('anyChange',this.state.anyChange)
     const {
@@ -146,7 +166,6 @@ export default class item extends Component {
         <button
           className="badge badge-danger mr-2"
           onClick={this.deleteItem}
-          disabled={true}
         >
           Delete
         </button>
@@ -156,6 +175,28 @@ export default class item extends Component {
           data-effect="solid"
           data-type="info"
         >
+
+<Button variant="danger" onClick={this.showModal}>
+        Delete
+      </Button>
+
+      <Modal show={this.state.showModal} onHide={this.hideModal} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.hideModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={this.deleteItem}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Button variant="success">Update</Button>
+
           <button
             type="submit"
             className="badge badge-success"
